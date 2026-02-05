@@ -1,0 +1,67 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap");
+@import "tailwindcss";
+
+@font-face {
+  font-family: "Koh";
+  src: url("./assets/fonts/KohSantepheap-Thin.ttf") format("truetype");
+  font-weight: 100;
+  font-style: thin;
+}
+
+@font-face {
+  font-family: "Koh";
+  src: url("./assets/fonts/KohSantepheap-Light.ttf") format("truetype");
+  font-weight: 300;
+  font-style: light;
+}
+
+@font-face {
+  font-family: "Koh";
+  src: url("./assets/fonts/KohSantepheap-Regular.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Koh";
+  src: url("./assets/fonts/KohSantepheap-Bold.ttf") format("truetype");
+  font-weight: 700;
+  font-style: bold;
+}
+
+@font-face {
+  font-family: "Koh";
+  src: url("./assets/fonts/KohSantepheap-Black.ttf") format("truetype");
+  font-weight: 900;
+  font-style: black;
+}
+
+@theme {
+  --font-family-koh: "Koh", sans-serif;
+}
+
+:root {
+  font-family: "Inter", sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+  color: #1f1f1f;
+  background-color: #d5d5d5;
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  margin: 0;
+  display: flex;
+  place-items: center;
+  min-width: 320px;
+  min-height: 100vh;
+}
+
+h1 {
+  font-size: 3.2em;
+  line-height: 1.1;
+}

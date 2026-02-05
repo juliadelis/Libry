@@ -1,0 +1,7 @@
+.p-icon-field .p-input-icon {
+  top: calc(50% - 8px);
+}
+
+.p-icon-field {
+  width: 100%;
+}
