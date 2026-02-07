@@ -38,13 +38,12 @@ export class usersService {
   getCurrent(): LogedUserModelLike | null {
     const token = this.getAuthToken();
     const payload = jwtDecode<GetLogedUserModelLike>(token);
-    console.log("Decoded JWT payload:", payload);
     return {
-      id: payload.user.id,
-      name: payload.user.name,
-      email: payload.user.email,
-      bio: payload.user.bio,
-      photoUrl: payload.user.photoUrl,
+      id: payload.user?.id,
+      name: payload.user?.name,
+      email: payload.user?.email,
+      bio: payload.user?.bio,
+      photoUrl: payload.user?.photoUrl,
     };
   }
 
