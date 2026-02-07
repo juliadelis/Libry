@@ -6,7 +6,7 @@ import { routerFactory } from "./routes/Routes";
 function App() {
   const router = useMemo(routerFactory, [1]);
   return (
-    <div className="App">
+    <div className=" w-screen h-screen overflow-hidden">
       <RouterProvider router={router} />
     </div>
   );

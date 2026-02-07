@@ -56,13 +56,11 @@ function lazyRoute(fn: () => Promise<React.FC | (() => React.JSX.Element)>) {
 function AuthGuard() {
   const token = localStorage.getItem("authToken");
   if (!token) {
-    console.log("No token found, redirecting to login");
     return <Navigate to="/login" replace />;
   }
 
   try {
     const decoded = jwtDecode<{ exp?: number }>(token);
-    console.log("Token decoded:", decoded);
 
     if (!decoded.exp) {
       console.warn("Token has no expiration, allowing access");
@@ -72,15 +70,7 @@ function AuthGuard() {
     const expirationTime = decoded.exp * 1000; // Convert to milliseconds
     const currentTime = Date.now();
 
-    console.log(
-      "Token expiration:",
-      new Date(expirationTime),
-      "Current time:",
-      new Date(currentTime),
-    );
-
     if (expirationTime < currentTime) {
-      console.log("Token expired, redirecting to login");
       return <Navigate to="/login" replace />;
     }
 

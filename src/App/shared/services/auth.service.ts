@@ -38,10 +38,8 @@ export class authService {
   login(dto: LoginDtoModelLike): Observable<string> {
     return this.http.post<any>(`auth/login`, dto).pipe(
       map((response) => {
-        console.log("Login response:", response);
-        console.log("Response data:", response.data);
         const token = response.data?.data?.token || response.data?.token;
-        console.log("Extracted token:", token);
+
         return token;
       }),
     );

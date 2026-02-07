@@ -35,6 +35,15 @@ export interface LogedUserModelLike {
   photoUrl?: string;
 }
 
+export interface GetLogedUserModelLike {
+  user: {
+    id: number;
+    name?: string;
+    email?: string;
+    bio?: string;
+    photoUrl?: string;
+  };
+}
 export interface UsersQueryOptionsDtoLike {
   pageOptions?: PageOptionsLike;
   nameSearch?: string;

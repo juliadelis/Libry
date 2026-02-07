@@ -10,6 +10,7 @@ import { UserContext, type UserHolder } from "../shared/contexts/UserContext";
 import { useRxObservable } from "../shared/hooks/rxjs-interop";
 import { usersService } from "../shared/services/users.service";
 import { useInject } from "../shared/modules/di";
+import NavBar from "../shared/components/Navbar/Navbar";
 
 export function MainLayout() {
   const userService = useInject(usersService);
@@ -44,14 +45,16 @@ export function MainLayout() {
   }, [editMode, model()]);
 
   return (
-    <div className="main-layout">
+    <div className="main-layout w-full h-full">
       <UserContext.Provider value={holderContext}>
-        <div className="left-container">
-          <div>lateral menu</div>
-        </div>
+        <div className="grid grid-cols-12 w-full h-full">
+          <div className="col-span-2 left-container flex w-full h-full">
+            <NavBar />
+          </div>
 
-        <div className="main-container relative text-wrap">
-          <Outlet />
+          <div className="col-span-10 main-container h-full relative text-wrap flex justify-center items-center">
+            <Outlet />
+          </div>
         </div>
       </UserContext.Provider>
     </div>

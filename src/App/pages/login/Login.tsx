@@ -27,14 +27,8 @@ export const Login = () => {
 
     LoginService.login(model).subscribe({
       next: (token) => {
-        console.log("Token received:", token);
         localStorage.setItem("authToken", token);
-        console.log(
-          "Token stored in localStorage:",
-          localStorage.getItem("authToken"),
-        );
         navigate("/", { replace: true });
-        console.log("Login realizado com sucesso");
       },
       error: (err) => {
         console.error("Login error:", err);
@@ -94,7 +88,7 @@ export const Login = () => {
               />
               <button
                 onClick={handleLogin}
-                className="bg-[#7B8D3B] px-5 py-3 rounded-full w-full text-[#F0F0F0]  font-bold">
+                className="bg-[#7B8D3B] px-5 py-3 rounded-full w-full text-[#F0F0F0]  font-bold cursor-pointer">
                 Login
               </button>
             </div>
@@ -102,7 +96,7 @@ export const Login = () => {
           <div>
             <a href="/signup" className="text-[#F0F0F0] text-sm">
               Don’t have an account?{" "}
-              <span className="text-[#7B8D3B]">Sign up</span>
+              <span className="text-[#7B8D3B]"> Sign up</span>
             </a>
           </div>
         </div>

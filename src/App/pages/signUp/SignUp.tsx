@@ -61,7 +61,7 @@ function SignUp() {
           <div>
             <a href="/login" className="text-[#F0F0F0] text-sm">
               Already a member?
-              <span className="text-[#7B8D3B]">Log in</span>
+              <span className="text-[#7B8D3B]"> Login</span>
             </a>
           </div>
         </div>

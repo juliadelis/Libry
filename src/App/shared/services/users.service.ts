@@ -5,6 +5,7 @@ import { map, Observable, tap } from "rxjs";
 import { jwtDecode } from "jwt-decode";
 import {
   EditUserModelLike,
+  GetLogedUserModelLike,
   LogedUserModelLike,
   UserModelLike,
 } from "../models/user.model";
@@ -36,13 +37,14 @@ export class usersService {
 
   getCurrent(): LogedUserModelLike | null {
     const token = this.getAuthToken();
-    const payload = jwtDecode<LogedUserModelLike>(token);
+    const payload = jwtDecode<GetLogedUserModelLike>(token);
+    console.log("Decoded JWT payload:", payload);
     return {
-      id: payload.id,
-      name: payload.name,
-      email: payload.email,
-      bio: payload.bio,
-      photoUrl: payload.photoUrl,
+      id: payload.user.id,
+      name: payload.user.name,
+      email: payload.user.email,
+      bio: payload.user.bio,
+      photoUrl: payload.user.photoUrl,
     };
   }
 
