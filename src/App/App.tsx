@@ -3,6 +3,8 @@ import "./App.css";
 import { useMemo } from "react";
 import { routerFactory } from "./routes/Routes";
 
+import "primeicons/primeicons.css";
+
 function App() {
   const router = useMemo(routerFactory, [1]);
   return (

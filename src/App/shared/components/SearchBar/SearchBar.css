@@ -1,0 +1,19 @@
+.searchbar-dropdown .p-dropdown-label {
+  color: #000000;
+}
+
+.searchbar-dropdown .p-dropdown-trigger {
+  color: #000000;
+}
+
+.searchbar-dropdown .p-dropdown-trigger-icon {
+  color: #000000;
+}
+
+.searchbar-dropdown.p-focus .p-dropdown-label {
+  color: #000000;
+}
+
+.searchbar-dropdown .p-dropdown-label.p-placeholder {
+  color: #000000;
+}
