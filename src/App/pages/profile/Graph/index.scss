@@ -1,0 +1,21 @@
+.reads-card {
+  background: #032b12;
+  border-radius: 22px;
+  padding: 14px 16px 12px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.reads-top-values {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  margin-bottom: 4px;
+  color: #dce7c9;
+  font-size: 11px;
+  text-align: center;
+}
+
+.reads-chart-wrap {
+  width: 100%;
+  height: 150px;
+}

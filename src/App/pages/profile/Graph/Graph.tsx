@@ -1,69 +1,69 @@
+import React from "react";
 import {
+  ResponsiveContainer,
+  BarChart,
   Bar,
   XAxis,
-  BarChart,
-  usePlotArea,
-  Tooltip,
-  TooltipIndex,
+  YAxis,
+  Cell,
 } from "recharts";
-import { RechartsDevtools } from "@recharts/devtools";
 
-export default function ReadGraph() {
-  const data = [
-    { label: "Jan", value: 0 },
-    { label: "Feb", value: 0 },
-    { label: "Mar", value: 0 },
-    { label: "Apr", value: 0 },
-    { label: "May", value: 0 },
-    { label: "Jun", value: 0 },
-    { label: "Jul", value: 0 },
-    { label: "Aug", value: 0 },
-    { label: "Sep", value: 0 },
-    { label: "Oct", value: 0 },
-    { label: "Nov", value: 0 },
-    { label: "Dec", value: 0 },
-  ];
+import "./index.scss";
+
+const rawData = [
+  { month: "Jan", value: 1 },
+  { month: "Feb", value: 0 },
+  { month: "Mar", value: 0 },
+  { month: "Apr", value: 0 },
+  { month: "May", value: 0 },
+  { month: "Jun", value: 0 },
+  { month: "Jul", value: 0 },
+  { month: "Ago", value: 0 },
+  { month: "Sep", value: 0 },
+  { month: "Oct", value: 0 },
+  { month: "Nov", value: 0 },
+  { month: "Dec", value: 0 },
+];
+
+export default function ReadsByMonthGraph() {
+  const data = rawData.map((d) => ({
+    ...d,
+    plotValue: d.value === 0 ? 0.03 : d.value,
+  }));
 
   return (
-    <div className="bg-[#0E2310] rounded-2xl h-full p-4 w-full">
-      <BarChart
-        style={{
-          width: "100%",
-          maxWidth: "700px",
-          maxHeight: "70vh",
-          aspectRatio: 1.618,
-        }}
-        responsive
-        data={data}
-        barCategoryGap={4}>
-        <XAxis dataKey="label" mirror padding={{ right: 30 }} interval={1} />
+    <div className="reads-card">
+      <h3 className="font-family-koh text-[18px]  text-white text-left mb-4">
+        Reads by month
+      </h3>
 
-        <Bar
-          dataKey="value"
-          label={{
-            fill: "white",
-            position: "insideTopRight",
-            angle: 0,
-            textAnchor: "start",
-          }}
-        />
-        <BottomTooltip />
-        <RechartsDevtools />
-      </BarChart>
+      <div className="reads-top-values">
+        {rawData.map((d) => (
+          <span key={d.month}>{d.value}</span>
+        ))}
+      </div>
+
+      <div className="reads-chart-wrap">
+        <ResponsiveContainer width="100%" height={145}>
+          <BarChart data={data} barCategoryGap="28%">
+            <XAxis
+              dataKey="month"
+              axisLine={false}
+              tickLine={false}
+              tick={{ fill: "#E8EEDC", fontSize: 12 }}
+            />
+            <YAxis hide domain={[0, 1.1]} />
+            <Bar dataKey="plotValue" radius={[8, 8, 8, 8]} barSize={7}>
+              {data.map((d) => (
+                <Cell
+                  key={d.month}
+                  fill={d.value === 0 ? "#95A85E" : "#8EAF57"}
+                />
+              ))}
+            </Bar>
+          </BarChart>
+        </ResponsiveContainer>
+      </div>
     </div>
   );
 }
-
-const BottomTooltip = () => {
-  const plotArea = usePlotArea();
-  if (plotArea == null) {
-    return null;
-  }
-  return (
-    <Tooltip
-      defaultIndex={2}
-      cursor={false}
-      position={{ y: plotArea.y + plotArea.height - 100 }}
-    />
-  );
-};
