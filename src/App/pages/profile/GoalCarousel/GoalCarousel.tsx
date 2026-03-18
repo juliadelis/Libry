@@ -1,12 +1,10 @@
 import { useEffect, useMemo, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useInject } from "../../../shared/modules/di";
-import {
-  bookService,
-  ReadingGoalLike,
-} from "../../../shared/services/book.service";
+import { bookService } from "../../../shared/services/book.service";
 import "../Graph/index.scss";
 import { Button } from "primereact/button";
+import { ReadingGoalLike } from "App/shared/models/books.model";
 
 export default function GoalCarousel() {
   const currentYear = useMemo(() => new Date().getFullYear(), []);

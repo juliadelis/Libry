@@ -2,31 +2,11 @@ import { inject as tsInject, injectable } from "tsyringe";
 import { RxAxios } from "../modules/rxjs-axios";
 import { TOKENS } from "../modules/di/tokens";
 import { catchError, map, Observable, of, throwError } from "rxjs";
-
-export interface BookLike {
-  id: string;
-  title: string;
-  coverUrl?: string | null;
-  author?: string | null;
-}
-
-export interface ReadingGoalBookLike {
-  id: string;
-  goalBookId?: string | null;
-  isRead: boolean;
-  completedAt?: string | null;
-  book: BookLike;
-}
-
-export interface ReadingGoalLike {
-  id?: string | null;
-  year: number;
-  targetCount: number | null;
-  totalBooks: number;
-  achievedBooks: number;
-  progress: number;
-  books: ReadingGoalBookLike[];
-}
+import {
+  CurrentReadingItemLike,
+  ReadingGoalBookLike,
+  ReadingGoalLike,
+} from "../models/books.model";
 
 @injectable()
 export class bookService {
@@ -194,6 +174,74 @@ export class bookService {
           catchError((secondError) => {
             if (this.isNotFoundError(secondError)) {
               return of(null);
+            }
+
+            return throwError(() => secondError);
+          }),
+        );
+      }),
+    );
+  }
+
+  private normalizeCurrentReadingResponse(
+    input: any,
+  ): CurrentReadingItemLike[] {
+    const payload = this.unwrapPayload(input);
+    const items = Array.isArray(payload?.readingItems)
+      ? payload.readingItems
+      : Array.isArray(payload?.items)
+        ? payload.items
+        : [];
+
+    return items
+      .map((item: any, index: number): CurrentReadingItemLike | null => {
+        const rawBook = item?.book;
+
+        if (!rawBook?.id && !rawBook?.title) {
+          return null;
+        }
+
+        return {
+          id: String(item?.id ?? rawBook?.id ?? `${index}`),
+          pagesRead:
+            item?.pagesRead !== undefined && item?.pagesRead !== null
+              ? Number(item.pagesRead)
+              : 0,
+          status: item?.status ?? null,
+          updatedAt: item?.updatedAt ?? null,
+          book: {
+            id: String(rawBook?.id ?? `${index}`),
+            title: String(rawBook?.title ?? "Untitled"),
+            author: rawBook?.author ?? null,
+            coverUrl: rawBook?.coverUrl ?? null,
+            pages:
+              rawBook?.pages !== undefined && rawBook?.pages !== null
+                ? Number(rawBook.pages)
+                : null,
+          },
+        };
+      })
+      .filter(
+        (item: CurrentReadingItemLike | null): item is CurrentReadingItemLike =>
+          Boolean(item),
+      );
+  }
+
+  getCurrentReadingBooks(): Observable<CurrentReadingItemLike[]> {
+    const endpoints = ["reading/current", "shelf/reading/current"];
+
+    return this.http.get<any>(endpoints[0], this.addAuthHeaders()).pipe(
+      map((response) => this.normalizeCurrentReadingResponse(response)),
+      catchError((firstError) => {
+        if (!this.isNotFoundError(firstError)) {
+          return throwError(() => firstError);
+        }
+
+        return this.http.get<any>(endpoints[1], this.addAuthHeaders()).pipe(
+          map((response) => this.normalizeCurrentReadingResponse(response)),
+          catchError((secondError) => {
+            if (this.isNotFoundError(secondError)) {
+              return of([]);
             }
 
             return throwError(() => secondError);
