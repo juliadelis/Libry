@@ -21,6 +21,7 @@ import { RxEventBus } from "@rxjs-toolkit/eventbus";
 import { RxAxios } from "../rxjs-axios";
 import { usersService } from "../../services/users.service";
 import { authService } from "../../services/auth.service";
+import { bookService } from "../../services/book.service";
 
 export function registerGlobalDeps() {
   if (!container.isRegistered(TOKENS.Http)) {
@@ -44,6 +45,10 @@ export function registerGlobalDeps() {
 
   if (!container.isRegistered(authService)) {
     container.register(authService, authService);
+  }
+
+  if (!container.isRegistered(bookService)) {
+    container.register(bookService, bookService);
   }
 }
 

@@ -53,7 +53,9 @@ function NavBar() {
       <div className="flex px-5 py-7 justify-between flex-col bg-white w-full h-full">
         <div className="flex flex-col gap-10">
           <div>
-            <img src={logo} alt="Libry Logo" height={55} width={172} />
+            <Link className={`flex items-center font-bold`} to={"/"}>
+              <img src={logo} alt="Libry Logo" height={55} width={172} />
+            </Link>
           </div>
           <div>
             <h3 className="text-left font-family-koh font-bold text-[18px] text-[#1F1F1F]">
